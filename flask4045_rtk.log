@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+collected 2 items
+tests/test_blueprints.py FF                                              [100%]
+=================================== FAILURES ===================================
+_________________________ test_dotted_name_not_allowed _________________________
+app = <Flask 'flask_test'>, client = <FlaskClient <Flask 'flask_test'>>
+    ... <<38 lines hidden by rtk — call fetch_raw_context to view>> ...
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:958
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:958
+=========================== short test summary info ============================
+FAILED tests/test_blueprints.py::test_dotted_name_not_allowed - Failed: DID N...
+FAILED tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+======================== 2 failed, 32 warnings in 0.11s ========================

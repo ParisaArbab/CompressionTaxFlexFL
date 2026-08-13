@@ -1,0 +1,138 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-6.2.5, py-1.11.0, pluggy-1.6.0
+rootdir: /home/claude/wp1/repos/flask, configfile: setup.cfg
+collected 2 items
+
+tests/test_blueprints.py FF                                              [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_dotted_name_not_allowed _________________________
+
+app = <Flask 'flask_test'>, client = <FlaskClient <Flask 'flask_test'>>
+
+    def test_dotted_name_not_allowed(app, client):
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/test_blueprints.py:255: Failed
+________________ test_route_decorator_custom_endpoint_with_dots ________________
+
+app = <Flask 'flask_test'>, client = <FlaskClient <Flask 'flask_test'>>
+
+    def test_route_decorator_custom_endpoint_with_dots(app, client):
+        bp = flask.Blueprint("bp", __name__)
+    
+        with pytest.raises(ValueError):
+>           bp.route("/", endpoint="a.b")(lambda: "")
+
+tests/test_blueprints.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/flask/scaffold.py:433: in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Blueprint 'bp'>, rule = '/', endpoint = 'a.b'
+view_func = <function test_route_decorator_custom_endpoint_with_dots.<locals>.<lambda> at 0x7f36eb3d2c00>
+options = {}
+
+    def add_url_rule(
+        self,
+        rule: str,
+        endpoint: t.Optional[str] = None,
+        view_func: t.Optional[t.Callable] = None,
+        **options: t.Any,
+    ) -> None:
+        """Like :meth:`Flask.add_url_rule` but for a blueprint.  The endpoint for
+        the :func:`url_for` function is prefixed with the name of the blueprint.
+        """
+        if endpoint:
+>           assert "." not in endpoint, "Blueprint endpoints should not contain dots"
+E           AssertionError: Blueprint endpoints should not contain dots
+
+src/flask/blueprints.py:364: AssertionError
+=============================== warnings summary ===============================
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:958
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:958
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:958: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    inlocs = ast.Compare(ast.Str(name.id), [ast.In()], [locs])
+
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:961
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:961
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:961: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    expr = ast.IfExp(test, self.display(name), ast.Str(name.id))
+
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1071
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1071
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1071: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    syms.append(ast.Str(sym))
+
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1073
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1073
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:1073: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    expls.append(ast.Str(expl))
+
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:823
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:823
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:823: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    keys = [ast.Str(key) for key in current.keys()]
+
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:933
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:933
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:933: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    assertmsg = ast.Str("")
+
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:935
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:935
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:935: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    template = ast.BinOp(assertmsg, ast.Add(), ast.Str(explanation))
+
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:947
+../../venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:947
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:947: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    clear = ast.Assign(variables, ast.NameConstant(None))
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /home/claude/wp1/repos/flask/src/flask/scaffold.py:797: DeprecationWarning: 'pkgutil.get_loader' is deprecated and slated for removal in Python 3.14; use importlib.util.find_spec() instead
+    loader = pkgutil.get_loader(root_mod_name)
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /usr/lib/python3.12/pkgutil.py:291: DeprecationWarning: 'pkgutil.find_loader' is deprecated and slated for removal in Python 3.14; use importlib.util.find_spec() instead
+    return find_loader(fullname)
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/werkzeug/routing.py:1010: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    parts = parts or [ast.Str("")]
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/werkzeug/routing.py:1007: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    _convert(elem) if is_dynamic else ast.Str(s=elem)
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /usr/lib/python3.12/ast.py:587: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+    return Constant(*args, **kwargs)
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/werkzeug/routing.py:1014: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    if isinstance(p, ast.Str) and isinstance(ret[-1], ast.Str):
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/werkzeug/routing.py:1015: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+    ret[-1] = ast.Str(ret[-1].s + p.s)
+
+tests/test_blueprints.py::test_dotted_name_not_allowed
+tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+  /home/claude/wp1/venv_flask/lib/python3.12/site-packages/werkzeug/routing.py:1015: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    ret[-1] = ast.Str(ret[-1].s + p.s)
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_blueprints.py::test_dotted_name_not_allowed - Failed: DID N...
+FAILED tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots
+======================== 2 failed, 32 warnings in 0.11s ========================
